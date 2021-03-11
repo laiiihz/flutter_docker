@@ -18,12 +18,13 @@ RUN wget -O sdk-tools.zip https://dl.google.com/android/repository/sdk-tools-lin
 RUN unzip sdk-tools.zip && rm sdk-tools.zip
 RUN mv tools Android/sdk/tools
 RUN cd Android/sdk/tools/bin && yes | ./sdkmanager --licenses
-RUN cd Android/sdk/tools/bin && ./sdkmanager "build-tools;29.0.2" "patcher;v4" "platform-tools" "platforms;android-29" "sources;android-29"
+RUN cd Android/sdk/tools/bin && ./sdkmanager "build-tools;30.0.2" "patcher;v4" "platform-tools" "platforms;android-30" "sources;android-30"
 ENV PATH "$PATH:/home/developer/Android/sdk/platform-tools"
 
 # Download Flutter SDK
 RUN git clone https://github.com/flutter/flutter.git
+RUN cd flutter && git checkout 1.22.6
 ENV PATH "$PATH:/home/developer/flutter/bin"
 
 # Run basic check to download Dark SDK
-RUN flutter doctor
+RUN flutter doctor -v
